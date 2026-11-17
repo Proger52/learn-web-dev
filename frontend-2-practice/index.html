@@ -3,12 +3,225 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Выбор даты и времени</title>
+    <title>BLACKWOOD — Выбор даты и времени</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
-    <div class="page">
-      <!-- Перенесите вашу верстку. Удалите статичные данные. Подключите скрипт -->
-    </div>
+    <!-- Шапка сайта -->
+    <header class="site-header">
+      <div class="header-inner">
+        <a href="#" class="logo">
+          <span class="logo-title">BLACKWOOD</span>
+        </a>
+
+        <nav class="main-nav" aria-label="Основное меню">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#" class="nav-link">Главная</a></li>
+            <li class="nav-item"><a href="#" class="nav-link active">Услуги</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Мастера</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Отзывы</a></li>
+            <li class="nav-item"><a href="#" class="nav-link">Контакты</a></li>
+          </ul>
+        </nav>
+
+        <button type="button" class="btn btn-gold btn-header">Записаться</button>
+      </div>
+    </header>
+
+    <!-- Индикатор шагов бронирования -->
+    <nav class="steps-nav" aria-label="Этапы записи">
+      <div class="steps-container">
+        <!-- Шаг 1 -->
+        <div class="step-item step-completed">
+          <div class="step-badge">
+            <span class="step-icon">✓</span>
+          </div>
+          <span class="step-name">Выбор мастера</span>
+        </div>
+
+        <!-- Шаг 2 -->
+        <div class="step-item step-completed">
+          <div class="step-badge">
+            <span class="step-icon">✓</span>
+          </div>
+          <span class="step-name">Услуга</span>
+        </div>
+
+        <!-- Шаг 3: Текущий активный -->
+        <div class="step-item step-active">
+          <div class="step-badge">
+            <span class="step-number">3</span>
+          </div>
+          <div class="step-text-group">
+            <span class="step-counter">Шаг 3 из 5</span>
+            <span class="step-name">Дата и время</span>
+          </div>
+        </div>
+
+        <!-- Шаг 4 -->
+        <div class="step-item step-upcoming">
+          <div class="step-badge">
+            <span class="step-number">4</span>
+          </div>
+          <span class="step-name">Ваши данные</span>
+        </div>
+
+        <!-- Шаг 5 -->
+        <div class="step-item step-upcoming">
+          <div class="step-badge">
+            <span class="step-number">5</span>
+          </div>
+          <span class="step-name">Подтверждение</span>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Основная рабочая область -->
+    <main class="main-content">
+      <div class="content-container">
+        <!-- Сетка из двух колонок: слева календарь, справа мастер и слоты -->
+        <div class="booking-columns">
+          
+          <!-- Левая колонка: заголовок и календарь -->
+          <div class="booking-left-col">
+            <div class="page-heading">
+              <h1 class="page-title">Выберите дату и время</h1>
+              <p class="page-subtitle">Выберите удобный день и свободное время для посещения.</p>
+            </div>
+
+            <!-- Карточка календаря -->
+            <section class="card calendar-card" aria-labelledby="calendar-title">
+              <div class="calendar-header">
+                <h2 id="calendar-title" class="calendar-month">Ноябрь 2026</h2>
+                <div class="calendar-controls">
+                  <button type="button" class="calendar-arrow" id="calendar-prev" aria-label="Предыдущий месяц">‹</button>
+                  <button type="button" class="calendar-arrow" id="calendar-next" aria-label="Следующий месяц">›</button>
+                </div>
+              </div>
+
+              <!-- Дни недели -->
+              <div class="calendar-weekdays" aria-hidden="true">
+                <span>Пн</span>
+                <span>Вт</span>
+                <span>Ср</span>
+                <span>Чт</span>
+                <span>Пт</span>
+                <span>Сб</span>
+                <span>Вс</span>
+              </div>
+
+              <!-- Сетка дней (заполняется через JS) -->
+              <div class="calendar-days" id="calendar-days"></div>
+            </section>
+          </div>
+
+          <!-- Правая колонка: сводка мастера и слоты времени -->
+          <div class="booking-right-col">
+            
+            <!-- Плашка информации о мастере и выбранной услуге -->
+            <section class="master-card" aria-label="Выбранный мастер и услуга">
+              <div class="master-header">
+                <span class="master-label">Мастер: </span>
+                <span class="master-name">Дмитрий Волков</span>
+              </div>
+              <div class="master-service">Услуга: Стрижка + оформление бороды</div>
+              <div class="master-details">
+                <span class="details-duration">Продолжительность: 90 минут</span>
+                <span class="details-separator">·</span>
+                <span class="details-price">Стоимость: 2 800 ₽</span>
+              </div>
+            </section>
+
+            <!-- Карточка выбора времени -->
+            <section class="card time-card" aria-labelledby="time-title">
+              <h2 id="time-title" class="time-card-title">Свободное время</h2>
+
+              <!-- Сетка слотов времени (заполняется через JS) -->
+              <div class="time-slots-grid" id="time-slots-grid"></div>
+
+              <!-- Подсказка о приглушенных слотах -->
+              <div class="time-slots-hint">
+                Приглушённые слоты уже заняты
+              </div>
+            </section>
+          </div>
+
+        </div>
+
+        <!-- Нижняя панель подтверждения и перехода -->
+        <section class="action-bar" aria-label="Панель перехода">
+          <button type="button" class="btn btn-outline btn-back" id="btn-back">
+            ← Назад
+          </button>
+
+          <div class="action-summary">
+            <div class="summary-datetime" id="summary-datetime">12 ноября 2026, 14:30</div>
+            <div class="summary-meta" id="summary-meta">90 минут &nbsp;·&nbsp; 2 800 ₽</div>
+          </div>
+
+          <button type="button" class="btn btn-gold btn-next" id="btn-next">
+            Далее →
+          </button>
+        </section>
+      </div>
+    </main>
+
+    <!-- Подвал сайта -->
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <div class="footer-columns">
+          
+          <!-- Колонка бренда -->
+          <div class="footer-col brand-col">
+            <div class="footer-brand-title">BLACKWOOD</div>
+            <div class="footer-brand-sub">BARBERSHOP</div>
+            <p class="footer-tagline">Твой стиль — наша работа.</p>
+          </div>
+
+          <!-- Колонка навигации -->
+          <div class="footer-col nav-col">
+            <div class="footer-heading">НАВИГАЦИЯ</div>
+            <ul class="footer-nav-list">
+              <li>
+                <a href="#">Главная</a>
+                <span class="nav-dot">·</span>
+                <a href="#">Услуги</a>
+                <span class="nav-dot">·</span>
+                <a href="#">Мастера</a>
+              </li>
+              <li>
+                <a href="#">Отзывы</a>
+                <span class="nav-dot">·</span>
+                <a href="#">Контакты</a>
+              </li>
+            </ul>
+          </div>
+
+          <!-- Колонка информации -->
+          <div class="footer-col info-col">
+            <div class="footer-heading">ЖДЁМ ВАС В BLACKWOOD</div>
+            <p class="footer-info-text">
+              Выберите удобное время<br />
+              и доверьте свой стиль мастеру.
+            </p>
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-copyright">© BLACKWOOD BARBERSHOP, 2026</div>
+          <div class="footer-signature">Создано с характером</div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Скрипт логики бронирования -->
+    <script src="script.js"></script>
   </body>
 </html>

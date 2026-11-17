@@ -1,6 +1,4 @@
-/* Стили страницы.
-   Скопируйте с предудущей практики. */
-
+/* ===== Reset and Base ===== */
 * {
   margin: 0;
   padding: 0;
@@ -9,5 +7,664 @@
 
 body {
   min-height: 100vh;
-  font-family: sans-serif;
+  font-family: "Montserrat", sans-serif;
+  display: flex;
+  flex-direction: column;
+  background: #181818;
+  color: #ffffff;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  list-style: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+/* ===== Header ===== */
+.site-header {
+  background: #111111;
+  border-bottom: 1px solid #222222;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 56px;
+  height: 72px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.logo-title {
+  font-weight: 700;
+  font-size: 24px;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.nav-list {
+  display: flex;
+  gap: 36px;
+}
+
+.nav-link {
+  font-size: 14px;
+  color: #9a9590;
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid transparent;
+  transition: color 0.2s;
+}
+
+.nav-link:hover {
+  color: #ffffff;
+}
+
+.nav-link.active {
+  color: #ffffff;
+  border-bottom-color: #c89b5a;
+}
+
+/* ===== Buttons ===== */
+.btn {
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 13px;
+  line-height: 17px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, opacity 0.2s;
+}
+
+.btn-gold {
+  background: #c89b5a;
+  color: #181818;
+  padding: 12px 28px;
+}
+
+.btn-gold:hover {
+  background: #b5894b;
+}
+
+.btn-outline {
+  background: #181818;
+  border: 1px solid #333333;
+  color: #ffffff;
+  padding: 12px 28px;
+}
+
+.btn-outline:hover {
+  border-color: #555555;
+  background: #222222;
+}
+
+/* ===== Steps Navigation ===== */
+.steps-nav {
+  background: #181818;
+  border-bottom: 1px solid #242424;
+  padding: 24px 56px;
+}
+
+.steps-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.step-badge {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.step-completed .step-badge {
+  background: transparent;
+  border: 1.5px solid #c89b5a;
+}
+
+.step-completed .step-icon {
+  color: #c89b5a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.step-active .step-badge {
+  background: #c89b5a;
+}
+
+.step-active .step-number {
+  font-weight: 700;
+  font-size: 13px;
+  color: #181818;
+}
+
+.step-upcoming .step-badge {
+  background: #242424;
+  border: 1px solid #333333;
+}
+
+.step-upcoming .step-number {
+  color: #666666;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.step-name {
+  font-size: 14px;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.step-completed .step-name {
+  color: #c89b5a;
+}
+
+.step-active .step-name {
+  color: #c89b5a;
+  font-weight: 700;
+}
+
+.step-upcoming .step-name {
+  color: #666666;
+  font-weight: 400;
+}
+
+.step-text-group {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.step-counter {
+  font-size: 11px;
+  color: #c89b5a;
+}
+
+/* ===== Main Content ===== */
+.main-content {
+  flex: 1;
+  background: #181818;
+  padding: 40px 56px 60px;
+}
+
+.content-container {
+  max-width: 1024px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+.booking-columns {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+}
+
+.booking-left-col {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.booking-right-col {
+  width: 400px;
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== Page Heading ===== */
+.page-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.page-title {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.page-subtitle {
+  font-size: 15px;
+  color: #9a9590;
+}
+
+/* ===== Card ===== */
+.card {
+  background: #242424;
+  border: 1px solid #2e2e2e;
+  border-radius: 16px;
+  padding: 28px;
+}
+
+/* ===== Calendar ===== */
+.calendar-card {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.calendar-month {
+  font-size: 20px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.calendar-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.calendar-arrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  border: 1px solid #383838;
+  background: #1c1c1c;
+  font-size: 18px;
+  color: #cccccc;
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.calendar-arrow:hover {
+  background: #282828;
+  border-color: #555555;
+  color: #ffffff;
+}
+
+.calendar-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+}
+
+.calendar-weekdays span {
+  font-size: 12px;
+  font-weight: 600;
+  color: #777777;
+  padding: 8px 0;
+}
+
+.calendar-days {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.day-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  margin: 0 auto;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  font-family: inherit;
+  font-size: 14px;
+  color: #cccccc;
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.day-btn:hover:not(.selected):not(.other-month):not(.disabled) {
+  background: #333333;
+  color: #ffffff;
+}
+
+.day-btn.other-month {
+  color: #4a4a4a;
+  cursor: default;
+  pointer-events: none;
+}
+
+.day-btn.disabled {
+  color: #383838;
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.4;
+}
+
+.day-btn.today {
+  border: 1.5px solid #666666;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.day-btn.selected {
+  background: #c89b5a;
+  color: #181818;
+  font-weight: 700;
+}
+
+/* ===== Master & Service Info Card ===== */
+.master-card {
+  background: transparent;
+  border: none;
+  padding: 4px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.master-header {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.master-label {
+  font-size: 13px;
+  color: #9a9590;
+  font-weight: 500;
+}
+
+.master-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.master-service {
+  font-size: 13px;
+  font-weight: 500;
+  color: #9a9590;
+  line-height: 1.4;
+}
+
+.master-details {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+  font-size: 12px;
+  color: #c89b5a;
+  margin-top: 2px;
+}
+
+.details-separator {
+  color: #c89b5a;
+  font-weight: 700;
+}
+
+.details-price {
+  font-weight: 600;
+  color: #c89b5a;
+}
+
+/* ===== Time Slots Card ===== */
+.time-card {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.time-card-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.time-slots-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+}
+
+.time-slot-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 10px;
+  border-radius: 8px;
+  border: 1px solid #333333;
+  background: #181818;
+  color: #ffffff;
+  font-family: inherit;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  gap: 4px;
+  transition: all 0.15s ease;
+}
+
+.time-slot-btn.available:hover {
+  border-color: #c89b5a;
+  color: #c89b5a;
+}
+
+.time-slot-btn.selected {
+  background: #c89b5a;
+  border-color: #c89b5a;
+  color: #181818;
+}
+
+.time-slot-btn.selected .time-slot-status {
+  color: #3b2c17;
+  font-weight: 600;
+}
+
+.time-slot-btn.disabled {
+  background: #1e1e1e;
+  border: 1px solid #282828;
+  color: #4a4a4a;
+  cursor: not-allowed;
+}
+
+.time-slot-status {
+  font-size: 11px;
+  font-weight: 400;
+  color: #4a4a4a;
+}
+
+.time-slots-hint {
+  grid-column: 1 / -1;
+  font-size: 12px;
+  color: #666666;
+  text-align: center;
+  margin-top: 6px;
+  line-height: 1.4;
+}
+
+/* ===== Bottom Action Bar ===== */
+.action-bar {
+  background: transparent;
+  border: none;
+  padding: 10px 0;
+  display: flex;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.action-bar .btn-back {
+  padding: 12px 24px;
+  border-radius: 6px;
+  background: #181818;
+  border: 1px solid #333333;
+  color: #ffffff;
+}
+
+.action-bar .btn-back:hover {
+  border-color: #555555;
+  background: #222222;
+}
+
+.action-summary {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 4px;
+  margin-left: 28px;
+  margin-right: auto;
+}
+
+.summary-datetime {
+  font-size: 15px;
+  font-weight: 700;
+  color: #c89b5a;
+}
+
+.summary-meta {
+  font-size: 13px;
+  color: #777777;
+}
+
+.action-bar .btn-next {
+  padding: 12px 36px;
+  border-radius: 6px;
+  background: #c89b5a;
+  color: #181818;
+  font-weight: 700;
+}
+
+.action-bar .btn-next:hover {
+  background: #b5894b;
+}
+
+/* ===== Footer ===== */
+.site-footer {
+  background: #101010;
+  color: #ffffff;
+  padding: 56px 56px 36px;
+  margin-top: auto;
+  border-top: 1px solid #1c1c1c;
+}
+
+.footer-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  gap: 40px;
+  flex-wrap: wrap;
+}
+
+.footer-col {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.footer-brand-title {
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: 2px;
+  color: #ffffff;
+}
+
+.footer-brand-sub {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #c89b5a;
+  margin-top: -6px;
+}
+
+.footer-tagline {
+  font-size: 14px;
+  color: #777777;
+  margin-top: 4px;
+}
+
+.footer-heading {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #c89b5a;
+  text-transform: uppercase;
+  margin-bottom: 2px;
+}
+
+.footer-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.footer-nav-list li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  color: #aaaaaa;
+}
+
+.footer-nav-list a {
+  color: #aaaaaa;
+  transition: color 0.2s;
+}
+
+.footer-nav-list a:hover {
+  color: #c89b5a;
+}
+
+.nav-dot {
+  color: #444444;
+}
+
+.footer-info-text {
+  font-size: 14px;
+  color: #777777;
+  line-height: 1.6;
+}
+
+.footer-bottom {
+  border-top: 1px solid #1c1c1c;
+  padding-top: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  color: #555555;
 }
