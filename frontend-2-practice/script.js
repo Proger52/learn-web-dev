@@ -2,19 +2,15 @@
 // 1. ДАННЫЕ С СЕРВЕРА (ИМИТАЦИЯ)
 // ============================================================
 
-// «Сегодня» — дата, от которой блокируются прошлые дни.
-// В JavaScript месяцы 0-индексные: 10 = ноябрь.
+// «Сегодня» — актуальная текущая дата пользователя через new Date()
+const _now = new Date();
 const SERVER_DATA = {
-  today: { day: 10, month: 10, year: 2026 },
-  slots: [
-    { time: "10:00", available: true },
-    { time: "11:30", available: false },
-    { time: "13:00", available: true },
-    { time: "14:30", available: true },
-    { time: "16:00", available: true },
-    { time: "17:30", available: false },
-    { time: "19:00", available: true },
-  ],
+  today: {
+    day: _now.getDate(),
+    month: _now.getMonth(),
+    year: _now.getFullYear(),
+  },
+  slots: [],
 };
 
 // Разные слоты для чётных и нечётных дней, чтобы видеть смену данных
@@ -49,11 +45,12 @@ function getSlotsForDay(day, month, year) {
 // 2. СОСТОЯНИЕ СТРАНИЦЫ (STATE)
 // ============================================================
 
+// Начальное состояние: актуальный текущий месяц и доступный сегодняшний день
 const BOOKING_STATE = {
-  currentMonth: 10, // Ноябрь
-  currentYear: 2026,
-  selectedDay: 12, // По умолчанию выбран 12 ноября
-  selectedTime: "14:30", // По умолчанию выбрано 14:30
+  currentMonth: SERVER_DATA.today.month,
+  currentYear: SERVER_DATA.today.year,
+  selectedDay: SERVER_DATA.today.day,
+  selectedTime: null,
 };
 
 // ============================================================
@@ -174,9 +171,11 @@ function renderCalendar() {
   let html = "";
   cells.forEach(function (cell) {
     let classes = "day-btn";
+    let extraAttrs = "";
 
     if (cell.otherMonth) {
       classes += " other-month";
+      extraAttrs = ' disabled aria-disabled="true"';
     } else {
       const isToday =
         cell.day === today.day &&
@@ -191,7 +190,10 @@ function renderCalendar() {
       if (isSelected) classes += " selected";
 
       const selectable = isDateSelectable(cell.day, month, year);
-      if (!selectable) classes += " disabled";
+      if (!selectable) {
+        classes += " disabled";
+        extraAttrs = ' disabled aria-disabled="true"';
+      }
     }
 
     html +=
@@ -201,7 +203,9 @@ function renderCalendar() {
       cell.day +
       '" data-other="' +
       cell.otherMonth +
-      '">' +
+      '"' +
+      extraAttrs +
+      ">" +
       cell.day +
       "</button>";
   });
@@ -238,6 +242,7 @@ function onDayClick(event) {
   renderCalendar();
   renderTimeSlots();
   updateBottomBar();
+  updateNextButtonState();
 }
 
 // Отрисовка слотов времени
@@ -301,6 +306,7 @@ function onTimeSlotClick(event) {
 
   renderTimeSlots();
   updateBottomBar();
+  updateNextButtonState();
 }
 
 // Обновление нижней панели с выбранной датой и временем
@@ -311,6 +317,14 @@ function updateBottomBar() {
   const day = BOOKING_STATE.selectedDay;
   const month = BOOKING_STATE.currentMonth;
   const year = BOOKING_STATE.currentYear;
+
+  const isDayValid =
+    day !== null && isDateSelectable(day, month, year);
+
+  if (!isDayValid) {
+    datetimeEl.textContent = "Дата не выбрана или недоступна";
+    return;
+  }
 
   const dateObj = new Date(year, month, day);
   const dayName = DAYS_OF_WEEK[dateObj.getDay()];
@@ -323,39 +337,126 @@ function updateBottomBar() {
   datetimeEl.textContent = dayName + ", " + day + " " + monthName + " " + year + timePart;
 }
 
-// Навигация по месяцам («‹» и «›»)
+// Управление активностью кнопки «Далее»
+function updateNextButtonState() {
+  const nextBtn = document.getElementById("btn-next");
+  if (!nextBtn) return;
+
+  const isDayValid =
+    BOOKING_STATE.selectedDay !== null &&
+    isDateSelectable(
+      BOOKING_STATE.selectedDay,
+      BOOKING_STATE.currentMonth,
+      BOOKING_STATE.currentYear
+    );
+  const isTimeValid = Boolean(BOOKING_STATE.selectedTime);
+
+  const canProceed = isDayValid && isTimeValid;
+
+  if (canProceed) {
+    nextBtn.removeAttribute("disabled");
+    nextBtn.classList.remove("disabled");
+  } else {
+    nextBtn.setAttribute("disabled", "disabled");
+    nextBtn.classList.add("disabled");
+  }
+}
+
+// Навигация по месяцам («‹» и «›») с полной синхронизацией
 function setupMonthNavigation() {
   const prevBtn = document.getElementById("calendar-prev");
   const nextBtn = document.getElementById("calendar-next");
 
+  function changeMonth(delta) {
+    BOOKING_STATE.currentMonth += delta;
+    if (BOOKING_STATE.currentMonth < 0) {
+      BOOKING_STATE.currentMonth = 11;
+      BOOKING_STATE.currentYear -= 1;
+    } else if (BOOKING_STATE.currentMonth > 11) {
+      BOOKING_STATE.currentMonth = 0;
+      BOOKING_STATE.currentYear += 1;
+    }
+
+    // Синхронизация выбора при смене месяца:
+    const isCurrentMonth =
+      BOOKING_STATE.currentYear === SERVER_DATA.today.year &&
+      BOOKING_STATE.currentMonth === SERVER_DATA.today.month;
+
+    const isFutureMonth =
+      compareDates(
+        { day: 1, month: BOOKING_STATE.currentMonth, year: BOOKING_STATE.currentYear },
+        SERVER_DATA.today
+      ) > 0;
+
+    if (isCurrentMonth) {
+      // В текущем месяце выбираем сегодня
+      BOOKING_STATE.selectedDay = SERVER_DATA.today.day;
+    } else if (isFutureMonth) {
+      // В будущем месяце выбираем 1-е число
+      BOOKING_STATE.selectedDay = 1;
+    } else {
+      // В прошлом месяце все даты недоступны
+      BOOKING_STATE.selectedDay = null;
+    }
+
+    // Сбрасываем выбранное время
+    BOOKING_STATE.selectedTime = null;
+
+    // Синхронизируем слоты для нового дня
+    if (BOOKING_STATE.selectedDay !== null) {
+      const response = getSlotsForDay(
+        BOOKING_STATE.selectedDay,
+        BOOKING_STATE.currentMonth,
+        BOOKING_STATE.currentYear
+      );
+      SERVER_DATA.slots = response.slots;
+      const firstAvailable = SERVER_DATA.slots.find(function (s) {
+        return s.available;
+      });
+      if (firstAvailable) {
+        BOOKING_STATE.selectedTime = firstAvailable.time;
+      }
+    } else {
+      SERVER_DATA.slots = [];
+    }
+
+    renderCalendar();
+    renderTimeSlots();
+    updateBottomBar();
+    updateNextButtonState();
+  }
+
   if (prevBtn) {
     prevBtn.addEventListener("click", function () {
-      BOOKING_STATE.currentMonth -= 1;
-      if (BOOKING_STATE.currentMonth < 0) {
-        BOOKING_STATE.currentMonth = 11;
-        BOOKING_STATE.currentYear -= 1;
-      }
-      renderCalendar();
+      changeMonth(-1);
     });
   }
 
   if (nextBtn) {
     nextBtn.addEventListener("click", function () {
-      BOOKING_STATE.currentMonth += 1;
-      if (BOOKING_STATE.currentMonth > 11) {
-        BOOKING_STATE.currentMonth = 0;
-        BOOKING_STATE.currentYear += 1;
-      }
-      renderCalendar();
+      changeMonth(1);
     });
   }
 }
 
-// Кнопка «Далее»
+// Кнопка «Далее» с проверкой допустимости даты и времени
 function setupNextButton() {
   const nextBtn = document.getElementById("btn-next");
   if (nextBtn) {
     nextBtn.addEventListener("click", function () {
+      const isDayValid =
+        BOOKING_STATE.selectedDay !== null &&
+        isDateSelectable(
+          BOOKING_STATE.selectedDay,
+          BOOKING_STATE.currentMonth,
+          BOOKING_STATE.currentYear
+        );
+
+      if (!isDayValid) {
+        alert("Пожалуйста, выберите доступную дату для записи.");
+        return;
+      }
+
       if (!BOOKING_STATE.selectedTime) {
         alert("Пожалуйста, выберите удобное время для записи.");
         return;
@@ -393,7 +494,7 @@ function setupNextButton() {
 // ============================================================
 
 function init() {
-  // Стартовая загрузка слотов для дня по умолчанию
+  // Загружаем слоты для сегодняшнего доступного дня
   const response = getSlotsForDay(
     BOOKING_STATE.selectedDay,
     BOOKING_STATE.currentMonth,
@@ -401,11 +502,20 @@ function init() {
   );
   SERVER_DATA.slots = response.slots;
 
+  // Инициализируем первым доступным слотом
+  const firstAvailableSlot = SERVER_DATA.slots.find(function (slot) {
+    return slot.available;
+  });
+  if (firstAvailableSlot) {
+    BOOKING_STATE.selectedTime = firstAvailableSlot.time;
+  }
+
   renderCalendar();
   renderTimeSlots();
   updateBottomBar();
   setupMonthNavigation();
   setupNextButton();
+  updateNextButtonState();
 }
 
 // Запуск после готовности DOM

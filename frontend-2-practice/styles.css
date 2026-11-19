@@ -566,6 +566,15 @@ button {
   background: #b5894b;
 }
 
+.action-bar .btn-next:disabled,
+.action-bar .btn-next.disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #333333;
+  color: #777777;
+}
+
 /* ===== Footer ===== */
 .site-footer {
   background: #101010;
