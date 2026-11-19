@@ -44,12 +44,11 @@ export default function App() {
         const data = await fetchToday();
         setToday(data);
 
-        // Инициализируем календарь и день из ответа сервера
-        setCurrentMonth(data.month);
-        setCurrentYear(data.year);
-        // По умолчанию выбираем дату (если 10 ноября, то можно выбрать 12 или data.day)
-        const initialDay = data.day + 2 <= 30 ? data.day + 2 : data.day;
-        setSelectedDay(initialDay);
+        // Инициализируем календарь: начальная дата через Date (учитывает реальную длину месяца)
+        const initialDate = new Date(data.year, data.month, data.day + 2);
+        setCurrentMonth(initialDate.getMonth());
+        setCurrentYear(initialDate.getFullYear());
+        setSelectedDay(initialDate.getDate());
       } catch (err) {
         setErrorToday(err.message || "Не удалось загрузить данные с сервера");
       } finally {
@@ -77,6 +76,7 @@ export default function App() {
       try {
         setLoadingSlots(true);
         setErrorSlots(null);
+        setSlots([]); // Очищаем старые слоты перед новым запросом
 
         const response = await fetchSlots(requestDate);
 
@@ -90,6 +90,14 @@ export default function App() {
           // Если на новом дне есть слоты, можно оставить null или выбрать свободный слот
         }
       } catch (err) {
+        // Защита от гонок в обработчике ошибок: не обновляем состояние для устаревшего запроса
+        if (
+          latestRequestRef.current.day !== requestDate.day ||
+          latestRequestRef.current.month !== requestDate.month ||
+          latestRequestRef.current.year !== requestDate.year
+        ) {
+          return;
+        }
         setErrorSlots(err.message || "Не удалось загрузить слоты времени");
       } finally {
         if (
@@ -107,6 +115,9 @@ export default function App() {
 
   // Обработчик перелистывания месяца назад
   const handlePrevMonth = () => {
+    setSelectedDay(null);
+    setSelectedTime(null);
+    setSlots([]);
     if (currentMonth === 0) {
       setCurrentMonth(11);
       setCurrentYear((prev) => prev - 1);
@@ -117,6 +128,9 @@ export default function App() {
 
   // Обработчик перелистывания месяца вперёд
   const handleNextMonth = () => {
+    setSelectedDay(null);
+    setSelectedTime(null);
+    setSlots([]);
     if (currentMonth === 11) {
       setCurrentMonth(0);
       setCurrentYear((prev) => prev + 1);
@@ -134,6 +148,11 @@ export default function App() {
   // Выбор слота времени
   const handleSelectTime = (time) => {
     setSelectedTime(time);
+  };
+
+  // Клик по кнопке «Назад»
+  const handleBack = () => {
+    window.history.back();
   };
 
   // Клик по кнопке «Далее»
@@ -228,6 +247,7 @@ export default function App() {
                 selectedYear={currentYear}
                 selectedTime={selectedTime}
                 onNext={handleNext}
+                onBack={handleBack}
               />
             </>
           )}

@@ -6,6 +6,7 @@ export default function BookingBottomBar({
   selectedYear,
   selectedTime,
   onNext,
+  onBack,
 }) {
   const dateObj = new Date(selectedYear, selectedMonth, selectedDay);
   const dayName = DAYS_OF_WEEK[dateObj.getDay()];
@@ -15,7 +16,7 @@ export default function BookingBottomBar({
 
   return (
     <section className="action-bar" aria-label="Панель перехода">
-      <button type="button" className="btn btn-outline btn-back">
+      <button type="button" className="btn btn-outline btn-back" onClick={onBack}>
         ← Назад
       </button>
 
@@ -27,7 +28,12 @@ export default function BookingBottomBar({
         <div className="summary-meta">90 минут &nbsp;·&nbsp; 2 800 ₽</div>
       </div>
 
-      <button type="button" className="btn btn-gold btn-next" onClick={onNext}>
+      <button
+        type="button"
+        className="btn btn-gold btn-next"
+        onClick={onNext}
+        disabled={!selectedTime}
+      >
         Далее →
       </button>
     </section>
