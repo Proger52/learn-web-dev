@@ -127,6 +127,8 @@ button {
   gap: 40px;
   max-width: 1200px;
   margin: 0 auto;
+  list-style: none;
+  padding: 0;
 }
 
 .step-item {
@@ -351,14 +353,28 @@ button {
   transition: background 0.15s, color 0.15s;
 }
 
-.day-btn:hover:not(.selected):not(.other-month) {
+.day-btn:hover:not(.selected):not(.other-month):not(:disabled) {
   background: #333333;
   color: #ffffff;
 }
 
-.day-btn.other-month {
+.day-btn.other-month,
+.day-btn.other-month:disabled {
   color: #4a4a4a;
-  cursor: default;
+  cursor: not-allowed;
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.day-btn:focus-visible,
+.calendar-arrow:focus-visible,
+.time-slot-btn:focus-visible,
+.btn:focus-visible,
+.nav-link:focus-visible,
+.footer-nav-list a:focus-visible,
+.logo:focus-visible {
+  outline: 2px solid #c89b5a;
+  outline-offset: 3px;
 }
 
 .day-btn.today {
@@ -659,4 +675,146 @@ button {
   align-items: center;
   font-size: 12px;
   color: #555555;
+}
+
+/* ===== Responsive Design (Media Queries) ===== */
+@media (max-width: 992px) {
+  .header-inner {
+    padding: 0 24px;
+  }
+
+  .steps-nav {
+    padding: 20px 24px;
+    overflow-x: auto;
+  }
+
+  .steps-container {
+    justify-content: flex-start;
+    min-width: 600px;
+  }
+
+  .main-content {
+    padding: 32px 24px 48px;
+  }
+
+  .booking-columns {
+    flex-direction: column;
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .booking-right-col {
+    width: 100%;
+  }
+
+  .action-bar {
+    gap: 16px;
+  }
+}
+
+@media (max-width: 768px) {
+  .site-header {
+    height: auto;
+    padding: 12px 0;
+  }
+
+  .header-inner {
+    flex-wrap: wrap;
+    gap: 16px;
+    height: auto;
+    padding: 0 16px;
+  }
+
+  .nav-list {
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .main-content {
+    padding: 24px 16px 40px;
+  }
+
+  .page-title {
+    font-size: 26px;
+  }
+
+  .page-subtitle {
+    font-size: 14px;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .calendar-days {
+    gap: 4px;
+  }
+
+  .day-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 13px;
+  }
+
+  .action-bar {
+    flex-direction: column;
+    align-items: stretch;
+    text-align: center;
+    gap: 16px;
+    padding: 20px;
+  }
+
+  .action-summary {
+    order: -1;
+  }
+
+  .btn-back,
+  .btn-next {
+    width: 100%;
+    text-align: center;
+  }
+
+  .site-footer {
+    padding: 40px 24px 24px;
+  }
+
+  .footer-columns {
+    flex-direction: column;
+    gap: 28px;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 12px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .header-inner {
+    justify-content: space-between;
+  }
+
+  .nav-list {
+    display: none;
+  }
+
+  .logo-title {
+    font-size: 20px;
+  }
+
+  .btn-header {
+    padding: 8px 16px;
+    font-size: 12px;
+  }
+
+  .time-slots-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .day-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 12px;
+  }
 }

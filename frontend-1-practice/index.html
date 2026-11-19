@@ -14,19 +14,19 @@
   </head>
   <body>
     <!-- Шапка сайта -->
-    <header class="site-header">
+    <header class="site-header" id="home">
       <div class="header-inner">
-        <a href="#" class="logo">
+        <a href="#home" class="logo">
           <span class="logo-title">BLACKWOOD</span>
         </a>
 
         <nav class="main-nav" aria-label="Основное меню">
           <ul class="nav-list">
-            <li class="nav-item"><a href="#" class="nav-link">Главная</a></li>
-            <li class="nav-item"><a href="#" class="nav-link active">Услуги</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Мастера</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Отзывы</a></li>
-            <li class="nav-item"><a href="#" class="nav-link">Контакты</a></li>
+            <li class="nav-item"><a href="#home" class="nav-link">Главная</a></li>
+            <li class="nav-item"><a href="#services" class="nav-link active">Услуги</a></li>
+            <li class="nav-item"><a href="#masters" class="nav-link">Мастера</a></li>
+            <li class="nav-item"><a href="#reviews" class="nav-link">Отзывы</a></li>
+            <li class="nav-item"><a href="#contacts" class="nav-link">Контакты</a></li>
           </ul>
         </nav>
 
@@ -36,25 +36,25 @@
 
     <!-- Индикатор шагов бронирования -->
     <nav class="steps-nav" aria-label="Этапы записи">
-      <div class="steps-container">
+      <ol class="steps-container">
         <!-- Шаг 1 -->
-        <div class="step-item step-completed">
+        <li class="step-item step-completed">
           <div class="step-badge">
-            <span class="step-icon">✓</span>
+            <span class="step-icon" aria-hidden="true">✓</span>
           </div>
           <span class="step-name">Выбор мастера</span>
-        </div>
+        </li>
 
         <!-- Шаг 2 -->
-        <div class="step-item step-completed">
+        <li class="step-item step-completed">
           <div class="step-badge">
-            <span class="step-icon">✓</span>
+            <span class="step-icon" aria-hidden="true">✓</span>
           </div>
           <span class="step-name">Услуга</span>
-        </div>
+        </li>
 
         <!-- Шаг 3: Текущий активный -->
-        <div class="step-item step-active">
+        <li class="step-item step-active" aria-current="step">
           <div class="step-badge">
             <span class="step-number">3</span>
           </div>
@@ -62,24 +62,24 @@
             <span class="step-counter">Шаг 3 из 5</span>
             <span class="step-name">Дата и время</span>
           </div>
-        </div>
+        </li>
 
         <!-- Шаг 4 -->
-        <div class="step-item step-upcoming">
+        <li class="step-item step-upcoming">
           <div class="step-badge">
             <span class="step-number">4</span>
           </div>
           <span class="step-name">Ваши данные</span>
-        </div>
+        </li>
 
         <!-- Шаг 5 -->
-        <div class="step-item step-upcoming">
+        <li class="step-item step-upcoming">
           <div class="step-badge">
             <span class="step-number">5</span>
           </div>
           <span class="step-name">Подтверждение</span>
-        </div>
-      </div>
+        </li>
+      </ol>
     </nav>
 
     <!-- Основная рабочая область -->
@@ -106,71 +106,71 @@
               </div>
 
               <!-- Дни недели -->
-              <div class="calendar-weekdays" aria-hidden="true">
-                <span>Пн</span>
-                <span>Вт</span>
-                <span>Ср</span>
-                <span>Чт</span>
-                <span>Пт</span>
-                <span>Сб</span>
-                <span>Вс</span>
+              <div class="calendar-weekdays" aria-label="Дни недели">
+                <span title="Понедельник" aria-label="Понедельник">Пн</span>
+                <span title="Вторник" aria-label="Вторник">Вт</span>
+                <span title="Среда" aria-label="Среда">Ср</span>
+                <span title="Четверг" aria-label="Четверг">Чт</span>
+                <span title="Пятница" aria-label="Пятница">Пт</span>
+                <span title="Суббота" aria-label="Суббота">Сб</span>
+                <span title="Воскресенье" aria-label="Воскресенье">Вс</span>
               </div>
 
               <!-- Сетка дней -->
-              <div class="calendar-days">
+              <div class="calendar-days" role="grid" aria-label="Календарь на ноябрь 2026">
                 <!-- Неделя 1 (хвост октября + 1 ноября) -->
-                <button type="button" class="day-btn other-month">26</button>
-                <button type="button" class="day-btn other-month">27</button>
-                <button type="button" class="day-btn other-month">28</button>
-                <button type="button" class="day-btn other-month">29</button>
-                <button type="button" class="day-btn other-month">30</button>
-                <button type="button" class="day-btn other-month">31</button>
-                <button type="button" class="day-btn">1</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="26 октября 2026, недоступно">26</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="27 октября 2026, недоступно">27</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="28 октября 2026, недоступно">28</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="29 октября 2026, недоступно">29</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="30 октября 2026, недоступно">30</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="31 октября 2026, недоступно">31</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="1 ноября 2026">1</button>
 
                 <!-- Неделя 2 -->
-                <button type="button" class="day-btn">2</button>
-                <button type="button" class="day-btn">3</button>
-                <button type="button" class="day-btn">4</button>
-                <button type="button" class="day-btn">5</button>
-                <button type="button" class="day-btn">6</button>
-                <button type="button" class="day-btn">7</button>
-                <button type="button" class="day-btn">8</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="2 ноября 2026">2</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="3 ноября 2026">3</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="4 ноября 2026">4</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="5 ноября 2026">5</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="6 ноября 2026">6</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="7 ноября 2026">7</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="8 ноября 2026">8</button>
 
                 <!-- Неделя 3: 10 - сегодня, 12 - выбранный день -->
-                <button type="button" class="day-btn">9</button>
-                <button type="button" class="day-btn today">10</button>
-                <button type="button" class="day-btn">11</button>
-                <button type="button" class="day-btn selected">12</button>
-                <button type="button" class="day-btn">13</button>
-                <button type="button" class="day-btn">14</button>
-                <button type="button" class="day-btn">15</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="9 ноября 2026">9</button>
+                <button type="button" class="day-btn today" aria-current="date" aria-pressed="false" aria-label="10 ноября 2026, сегодня">10</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="11 ноября 2026">11</button>
+                <button type="button" class="day-btn selected" aria-pressed="true" aria-label="12 ноября 2026, выбранная дата">12</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="13 ноября 2026">13</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="14 ноября 2026">14</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="15 ноября 2026">15</button>
 
                 <!-- Неделя 4 -->
-                <button type="button" class="day-btn">16</button>
-                <button type="button" class="day-btn">17</button>
-                <button type="button" class="day-btn">18</button>
-                <button type="button" class="day-btn">19</button>
-                <button type="button" class="day-btn">20</button>
-                <button type="button" class="day-btn">21</button>
-                <button type="button" class="day-btn">22</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="16 ноября 2026">16</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="17 ноября 2026">17</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="18 ноября 2026">18</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="19 ноября 2026">19</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="20 ноября 2026">20</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="21 ноября 2026">21</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="22 ноября 2026">22</button>
 
                 <!-- Неделя 5 -->
-                <button type="button" class="day-btn">23</button>
-                <button type="button" class="day-btn">24</button>
-                <button type="button" class="day-btn">25</button>
-                <button type="button" class="day-btn">26</button>
-                <button type="button" class="day-btn">27</button>
-                <button type="button" class="day-btn">28</button>
-                <button type="button" class="day-btn">29</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="23 ноября 2026">23</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="24 ноября 2026">24</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="25 ноября 2026">25</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="26 ноября 2026">26</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="27 ноября 2026">27</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="28 ноября 2026">28</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="29 ноября 2026">29</button>
 
                 <!-- Неделя 6 (30 ноября + начало декабря) -->
-                <button type="button" class="day-btn">30</button>
-                <button type="button" class="day-btn other-month">1</button>
-                <button type="button" class="day-btn other-month">2</button>
-                <button type="button" class="day-btn other-month">3</button>
-                <button type="button" class="day-btn other-month">4</button>
-                <button type="button" class="day-btn other-month">5</button>
-                <button type="button" class="day-btn other-month">6</button>
+                <button type="button" class="day-btn" aria-pressed="false" aria-label="30 ноября 2026">30</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="1 декабря 2026, недоступно">1</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="2 декабря 2026, недоступно">2</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="3 декабря 2026, недоступно">3</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="4 декабря 2026, недоступно">4</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="5 декабря 2026, недоступно">5</button>
+                <button type="button" class="day-btn other-month" disabled aria-disabled="true" aria-label="6 декабря 2026, недоступно">6</button>
               </div>
             </section>
           </div>
@@ -179,7 +179,7 @@
           <div class="booking-right-col">
             
             <!-- Плашка информации о мастере и выбранной услуге -->
-            <section class="master-card" aria-label="Выбранный мастер и услуга">
+            <section class="master-card" id="masters" aria-label="Выбранный мастер и услуга">
               <div class="master-header">
                 <span class="master-label">Мастер: </span>
                 <span class="master-name">Дмитрий Волков</span>
@@ -196,47 +196,47 @@
             <section class="card time-card" aria-labelledby="time-title">
               <h2 id="time-title" class="time-card-title">Свободное время</h2>
 
-              <div class="time-slots-grid">
+              <div class="time-slots-grid" role="group" aria-label="Доступные временные интервалы">
                 <!-- Слот 10:00 (свободный) -->
-                <button type="button" class="time-slot-btn available">
+                <button type="button" class="time-slot-btn available" aria-pressed="false" aria-label="10:00, свободный интервал">
                   <span class="time-slot-value">10:00</span>
                 </button>
 
                 <!-- Слот 11:30 (занят) -->
-                <button type="button" class="time-slot-btn disabled" disabled>
+                <button type="button" class="time-slot-btn disabled" disabled aria-disabled="true" aria-label="11:30, время занято">
                   <span class="time-slot-value">11:30</span>
                   <span class="time-slot-status">Занято</span>
                 </button>
 
                 <!-- Слот 13:00 (свободный) -->
-                <button type="button" class="time-slot-btn available">
+                <button type="button" class="time-slot-btn available" aria-pressed="false" aria-label="13:00, свободный интервал">
                   <span class="time-slot-value">13:00</span>
                 </button>
 
                 <!-- Слот 14:30 (выбран) -->
-                <button type="button" class="time-slot-btn selected">
+                <button type="button" class="time-slot-btn selected" aria-pressed="true" aria-label="14:30, выбранный интервал">
                   <span class="time-slot-value">14:30</span>
                   <span class="time-slot-status">Выбрано</span>
                 </button>
 
                 <!-- Слот 16:00 (свободный) -->
-                <button type="button" class="time-slot-btn available">
+                <button type="button" class="time-slot-btn available" aria-pressed="false" aria-label="16:00, свободный интервал">
                   <span class="time-slot-value">16:00</span>
                 </button>
 
                 <!-- Слот 17:30 (занят) -->
-                <button type="button" class="time-slot-btn disabled" disabled>
+                <button type="button" class="time-slot-btn disabled" disabled aria-disabled="true" aria-label="17:30, время занято">
                   <span class="time-slot-value">17:30</span>
                   <span class="time-slot-status">Занято</span>
                 </button>
 
                 <!-- Слот 19:00 (свободный) -->
-                <button type="button" class="time-slot-btn available">
+                <button type="button" class="time-slot-btn available" aria-pressed="false" aria-label="19:00, свободный интервал">
                   <span class="time-slot-value">19:00</span>
                 </button>
 
                 <!-- Подсказка о приглушенных слотах -->
-                <div class="time-slots-hint">
+                <div class="time-slots-hint" aria-hidden="true">
                   Приглушённые слоты<br />уже заняты
                 </div>
               </div>
@@ -247,16 +247,16 @@
 
         <!-- Нижняя панель подтверждения и перехода -->
         <section class="action-bar" aria-label="Панель перехода">
-          <button type="button" class="btn btn-outline btn-back">
+          <button type="button" class="btn btn-outline btn-back" aria-label="Вернуться к предыдущему шагу выбора услуги">
             ← Назад
           </button>
 
-          <div class="action-summary">
+          <div class="action-summary" aria-live="polite">
             <div class="summary-datetime">12 ноября 2026, 14:30–16:00</div>
             <div class="summary-meta">90 минут &nbsp;·&nbsp; 2 800 ₽</div>
           </div>
 
-          <button type="button" class="btn btn-gold btn-next">
+          <button type="button" class="btn btn-gold btn-next" aria-label="Перейти к следующему шагу ввода данных">
             Далее →
           </button>
         </section>
@@ -264,7 +264,7 @@
     </main>
 
     <!-- Подвал сайта -->
-    <footer class="site-footer">
+    <footer class="site-footer" id="contacts">
       <div class="footer-inner">
         <div class="footer-columns">
           
@@ -280,16 +280,16 @@
             <div class="footer-heading">НАВИГАЦИЯ</div>
             <ul class="footer-nav-list">
               <li>
-                <a href="#">Главная</a>
+                <a href="#home">Главная</a>
                 <span class="nav-dot">·</span>
-                <a href="#">Услуги</a>
+                <a href="#services">Услуги</a>
                 <span class="nav-dot">·</span>
-                <a href="#">Мастера</a>
+                <a href="#masters">Мастера</a>
               </li>
               <li>
-                <a href="#">Отзывы</a>
+                <a href="#reviews">Отзывы</a>
                 <span class="nav-dot">·</span>
-                <a href="#">Контакты</a>
+                <a href="#contacts">Контакты</a>
               </li>
             </ul>
           </div>
