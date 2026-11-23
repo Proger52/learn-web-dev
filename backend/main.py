@@ -2,7 +2,7 @@
 Модуль Backend. Задание 1 и Задание 2.
 - Класс Appointment (запись клиента)
 - Валидация заполненности всех полей
-- Бизнес-правило: часы работы салона с 08:00 до 20:00
+- Бизнес-правило: часы работы салона с 08:00 до 20:00 включительно
 """
 
 from typing import Optional
@@ -91,7 +91,8 @@ def get_service(service_id: int) -> Optional[Service]:
 def is_valid_working_time(time_str: str) -> bool:
     """
     Проверка бизнес-правила:
-    Записаться к мастеру можно только в часы работы салона: с 08:00 до 20:00.
+    Записаться к мастеру можно только в часы работы салона: с 08:00 до 20:00 включительно.
+    Время 20:00 допустимо (последний слот), 20:30 и позже — нет.
     """
     try:
         parts = time_str.strip().split(":")
@@ -101,7 +102,7 @@ def is_valid_working_time(time_str: str) -> bool:
         minutes = int(parts[1])
         if not (0 <= minutes < 60):
             return False
-        # Рабочие часы с 08:00 до 20:00 включительно
+        # Рабочие часы с 08:00 до 20:00 включительно (20:30 и позже недопустимо)
         return 8 <= hours <= 20 and (hours < 20 or minutes == 0)
     except (ValueError, AttributeError):
         return False
@@ -128,7 +129,7 @@ def create_appointment(
     if not time or not str(time).strip():
         return None
 
-    # 2. Проверка бизнес-правила: часы работы с 08:00 до 20:00
+    # 2. Проверка бизнес-правила: часы работы с 08:00 до 20:00 включительно
     if not is_valid_working_time(time):
         return None
 
@@ -173,4 +174,16 @@ if __name__ == "__main__":
     print("\n--- Тест 3: Запись с некорректным временем (00:00) ---")
     appointments.clear()
     no_correct_appointment = create_appointment("Сидорова А.А.", 1, 1, "00:00")
+    print(len(appointments))  # Ожидается: 0
+
+    print("\n--- Тест 4: Запись на 20:00 (граничное допустимое время) ---")
+    appointments.clear()
+    last_slot_appointment = create_appointment("Козлов В.В.", 1, 1, "20:00")
+    print(len(appointments))  # Ожидается: 1 (запись на 20:00 допускается)
+    if last_slot_appointment:
+        print(last_slot_appointment.client_name, last_slot_appointment.time)
+
+    print("\n--- Тест 5: Запись на 20:30 (недопустимо — после закрытия) ---")
+    appointments.clear()
+    after_close_appointment = create_appointment("Новиков П.П.", 1, 1, "20:30")
     print(len(appointments))  # Ожидается: 0
